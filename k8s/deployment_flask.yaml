@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 0%
+  template:
+    metadata:
+      labels:
+        app: flask
+    spec:
+      containers:
+      - image: myapp
+        imagePullPolicy: IfNotPresent
+        name: flask
+        resources:
+          limits:
+            cpu: 100m
+            memory: 500M
